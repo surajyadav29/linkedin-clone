@@ -5,6 +5,22 @@ It covers backend API development, frontend static hosting, and production deplo
 
 ---
 
+## Project Purpose
+
+This application was created primarily to practice deployment and DevOps workflows, not to build a full production-ready application.
+
+The main focus of this project was:
+- Deploying a backend application on AWS EC2
+- Configuring Nginx as a web server
+- Running the application using Gunicorn
+- Managing the process with Supervisor
+- Understanding how to restart and manage the app after EC2 stop/start
+- Learning real-world deployment steps used in industry
+
+This project helped me gain hands-on experience with AWS and deployment practices required for entry-level AWS and DevOps roles.
+
+---
+
 ## Project Overview
 
 The application consists of two main parts:
