@@ -1,0 +1,44 @@
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+import sqlite3
+
+app = Flask(__name__)
+CORS(app)
+
+DB = "linkedin.db"
+
+def get_db():
+    return sqlite3.connect(DB)
+
+@app.route("/api/posts", methods=["GET"])
+def get_posts():
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, author, content FROM posts")
+    rows = cursor.fetchall()
+    conn.close()
+
+    posts = []
+    for row in rows:
+        posts.append({
+            "id": row[0],
+            "author": row[1],
+            "content": row[2]
+        })
+    return jsonify(posts)
+
+@app.route("/api/posts", methods=["POST"])
+def add_post():
+    data = request.json
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO posts (author, content) VALUES (?, ?)",
+        (data["author"], data["content"])
+    )
+    conn.commit()
+    conn.close()
+    return jsonify({"message": "Post added"}), 201
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000)

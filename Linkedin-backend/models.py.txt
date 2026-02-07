@@ -1,0 +1,17 @@
+import sqlite3
+
+conn = sqlite3.connect("linkedin.db")
+cursor = conn.cursor()
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS posts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    author TEXT,
+    content TEXT
+)
+""")
+
+conn.commit()
+conn.close()
+
+print("Database ready")
